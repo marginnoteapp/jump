@@ -1,0 +1,8 @@
+{
+  "addonid": "marginnote.extension.jump",
+  "author": "MarginNote",
+  "title": "Jump",
+  "version": "1.0.0",
+  "marginnote_version_min": "3.6.19",
+  "cert_key": ""
+}
