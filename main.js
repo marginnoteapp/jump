@@ -9,7 +9,7 @@
     enterInteger: '请输入整数'
   }
   const en = {
-    confirm: 'OK',
+    confirm: 'Confirm',
     cancel: 'Cancel', enterOffset:
       'Please enter the page offset of the current document in MetaData-> Page Offset',
     offset: offset =>
