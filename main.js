@@ -142,6 +142,32 @@ try {
               }
             : null
         },
+        notebookWillOpen() {
+          NSNotificationCenter.defaultCenter().addObserverSelectorName(
+            self,
+            "onAddonBroadcast:",
+            "AddonBroadcast"
+          )
+        },
+        notebookWillClose() {
+          NSNotificationCenter.defaultCenter().removeObserverName(
+            self,
+            "AddonBroadcast"
+          )
+        },
+        async onAddonBroadcast(sender) {
+          if (
+            !Application.sharedInstance().checkNotifySenderInWindow(
+              sender,
+              self.window
+            )
+          )
+            return
+          const v = sender.userInfo.message
+          if (v === "jump") {
+            await jump()
+          }
+        },
         async onToggle() {
           self.status = true
           self.studyController.refreshAddonCommands()
