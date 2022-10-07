@@ -9,12 +9,12 @@ try {
   const zh = {
     confirm: "确定",
     cancel: "取消",
-    no_metaData: "检测到您并未安装 MetaData 插件，无法设置页码偏移量",
+    no_metaData: "检测到您并未安装 Metadata 插件，无法设置页码偏移量",
     offset: offset =>
       offset
         ? `当前文档的页码偏移量为 ${offset}`
-        : "当前文档的页码偏移量为 0，可以前去 MetaData 插件中设置页码偏移量",
-    download: "下载 MetaData",
+        : "当前文档的页码偏移量为 0，可以前去 Metadata 插件中设置页码偏移量",
+    download: "下载 Metadata",
     deleted: "该页已删除",
     out_range: "超出本书页码范围",
     gotopage: `转到指定页码`,
@@ -24,14 +24,14 @@ try {
     confirm: "Confirm",
     cancel: "Cancel",
     deleted: "This page has been deleted",
-    download: "Download MetaData",
+    download: "Download Metadata",
     out_range: "Out of page range of this book",
     no_metaData:
-      "You have not installed MetaData addon, so you can't set the page offset",
+      "You have not installed Metadata addon, so you can't set the page offset",
     offset: offset =>
       offset
         ? `This document's page offset is ${offset}`
-        : "This document's page offset is 0, you can go to MetaData addon to set the page offset",
+        : "This document's page offset is 0, you can go to Metadata addon to set the page offset",
     gotopage: "Go To Page",
     enter_integer: "Please enter an integer"
   }
@@ -51,9 +51,11 @@ try {
       }
     }
     function getPageOffset(md5) {
-      return NSUserDefaults.standardUserDefaults().objectForKey(
+      const data = NSUserDefaults.standardUserDefaults().objectForKey(
         "metadata_profile_doc"
-      )?.[md5]?.addon?.pageOffset
+      )
+      if (data === undefined) return undefined
+      return data[md5]?.addon?.pageOffset ?? 0
     }
     function popup(title, message, type, buttons = [lang.confirm]) {
       return new Promise(resolve =>
@@ -91,7 +93,7 @@ try {
           lang.download
         ])
         if (option === 0) {
-          openUrl("https://github.com/marginnoteapp/jump")
+          openUrl("https://github.com/marginnoteapp/metadata")
         }
         return
       }
